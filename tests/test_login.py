@@ -6,8 +6,6 @@ import time
 
 driver = webdriver.Chrome()
 driver.maximize_window()
-# 50 seconds is quite long; usually 20-30 is the "sweet spot" 
-# to prevent the HTTP timeout error you saw earlier.
 wait = WebDriverWait(driver, 20) 
 
 try:
@@ -24,11 +22,10 @@ try:
     login_btn.click()
 
     wait.until(EC.url_contains("/s/"))
-    print("✅ Login successful")
+    print(" Login successful")
 
     # ---------- OPEN PROFILE MENU ----------
-    # 1. Wait until the element is actually visible to the user
-    print("🔄 Waiting for profile button visibility...")
+    print("Waiting for profile button visibility...")
     profile_btn = wait.until(
         EC.visibility_of_element_located((By.CLASS_NAME, "profile-menuTrigger"))
     )
@@ -37,21 +34,19 @@ try:
     
     # 3. Finally, click it
     profile_btn.click()
-    print("✅ Profile menu opened")
+    print(" Profile menu opened")
 
-    # ---------- LOGOUT ----------
-    # Apply the same logic for the logout button
+    # ---------- LOGOUT -----
     logout_btn = wait.until(
         EC.visibility_of_element_located((By.CSS_SELECTOR, ".profile-menuItem.logOut.uiMenuItem"))
     )
     logout_btn.click()
 
     wait.until(EC.url_contains("/login"))
-    print("✅ Logout successful")
+    print(" Logout successful")
     
     # ---------- VERIFY LOGIN PAGE REAPPEARANCE ----------
-    # We look for the login button class you provided to confirm we are back
-    # This confirms the logout was successful and the login page has re-rendered
+    
     login_page_marker = wait.until(
         EC.visibility_of_element_located(
             (By.CSS_SELECTOR, ".slds-button.slds-button--brand.loginButton.uiButton--none.uiButton")
@@ -59,9 +54,9 @@ try:
     )
     
     if login_page_marker.is_displayed():
-        print("✅ Logout verified: Login button is visible again.")
+        print(" Logout verified: Login button is visible again.")
 except Exception as e:
-    print(f"❌ Test failed: {e}")
+    print(f" Test failed: {e}")
     driver.save_screenshot("logout_failure.png")
     raise
 
