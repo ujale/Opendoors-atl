@@ -1,5 +1,22 @@
+# existing
 venv/
 __pycache__/
 .env
 *.log
 *.pyc
+
+# pytest / automation artifacts
+reports/
+htmlcov/
+*.html
+
+# test artifacts
+screenshots/
+*.png
+*.jpg
+
+# OS / editor noise
+.DS_Store
+.idea/
+.vscode/
+
